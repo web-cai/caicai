@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			
+		</style>
+	</head>
+	<body>
+		<div class="box">
+			<ul>
+				
+			</ul>
+		</div>
+		<div class="footer">
+			
+		</div>
+		<script type="text/javascript" src="js/jQuery.3.5.min.js" ></script>
+		<script type="text/javascript">
+			//16 4 5页
+			$.ajax({
+				type:"get",
+				url:"json.json",
+				async:true,
+				dataType:"json",
+				success:function(data){
+					   let $ul=$(".box ul")
+					for(let i=0;i<data.length;i++){
+						let $li=$("<li></li>")
+						$ul.append($li)
+						$li.html(data[i])
+					}
+					let pages=Math.ceil(data.length/4);
+					//1---0，1，2，3
+					//2---4，5，6，7
+					//3---8，9，10，11
+					for(let i=0;i<pages;i++){
+						let $btn1=$("<button></button>");
+						$btn1.html(i+1)
+						$(".footer").append($btn1);
+					}
+					$("button").click(function(){
+						let $index=$(this).index()+1;
+						$("ul li").hide();
+						for(let i=0;i<4;i++){
+						$('li').eq((($index-1)*4)+i).show();	
+						}
+					})
+				},
+				error:function(){
+					
+				}
+			});
+		</script>
+	</body>
+</html>

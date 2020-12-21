@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			li:nth-child(n+5){
+				display: none;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="box">
+			<ul>
+				
+			</ul>
+		</div>
+		<div class="footer">
+			<!--18条
+			4条
+			5页
+			18/4=4..2  5
+			17/4=4..1  5-->
+			
+		</div>
+		<script type="text/javascript" src="js/jQuery.3.5.min.js" ></script>
+		<script type="text/javascript">
+			$.ajax({
+				type:"get",
+				url:"json.json",
+				async:true,
+				dataType:"json",
+				success:function(data){
+					for(let i=0;i<data.length;i++){
+						let $li=$("<li></li>");
+						$(".box ul").append($li);
+						$li.html(data[i])
+					}
+					let $pages=Math.ceil(data.length/4)
+				    for(let i=0;i<$pages;i++){
+				    	let $btn=$("<button></button>");
+				    	$(".footer").append($btn);
+				    	$btn.html(i+1)
+				    }
+//				    1-----0,1,2,3
+//				    2-----4,5,6,7
+//				    3-----8,9,10,11
+//				    4-----12,13,14,15
+//				    5-----16,17
+				    $("button").click(function(){
+				    	let $index=$(this).index()+1;
+				    	$("li").hide();
+				    	 for(let i=0;i<4;i++){
+				    	 	$("li").eq(($index-1)*4+i).show()
+				    	 }
+//				    	if(?==1){
+//				    		li.eq(0).show();
+//				    		li.eq(1).show()
+//				    		li.eq(2).show()
+//				    		li.eq(3).show()
+//				    	}else if(){
+//				    		li.eq(4).show();
+//				    		li.eq(5).show()
+//				    		li.eq(6).show()
+//				    		li.eq(7).show()
+//				    	}
+				    })
+				}
+			});
+		</script>
+	</body>
+</html>
